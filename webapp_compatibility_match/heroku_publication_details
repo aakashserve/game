@@ -1,0 +1,10 @@
+source /etc/environment && export PATH
+heroku create compatibility-check
+git init
+heroku git:remote -a compatibility-check
+git remote -v
+git add .
+git commit -m "first commit - compatibility"
+git push heroku master
+
+

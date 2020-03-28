@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- https://www.w3schools.com/howto/howto_css_profile_card.asp 
+https://www.w3schools.com/css/css_form.asp
+-->
+
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+input[type=text] {
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+/*textarea{
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+*/
+
+input[type=button], input[type=submit], input[type=reset] {
+  
+  font-weight:bold;
+  background-color: #016ABC;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  color: #fff;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+
+
+/*  background: #016ABC;
+  color: #fff;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #eee;
+  text-shadow:none;*/
+
+}
+
+.fa-linkedin {
+  color:#0e76a8;
+}
+
+.fa-medium {
+  color: black;
+}
+
+.fa-youtube {
+  color:#c4302b;
+}
+
+
+.card {
+  float:left;
+  padding: 10px 12px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 250px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center">Welcome !! Check your Compatibility Score !!</h2>
+
+<!-- <div align="start" class="card">
+
+  <img src="/static/images/aakash_1.png" style="width:50%">
+  <h1>Aakash Goel</h1>
+  <h3></h3>
+  <p class="title">Data Scientist</p>
+  <p>Interested in NLP work !!</p>
+  <div style="margin: 24px 0;">
+    <a href="https://medium.com/@aakashgoel12"><i class="fa fa-medium"></i></a>
+    <a href="https://www.linkedin.com/in/aakash-goel-587a7385/"><i class="fa fa-linkedin"></i></a>
+    <a href="https://www.youtube.com/channel/UC4yh4xPxRP0-bLG_ldnLCHA?sub_confirmation=1">
+      <i class="fa fa-youtube"></i></a>
+  </div>
+</div>
+ -->
+
+<div align="center">
+  <form method="POST" action="{{url_for('result')}}">
+    <!--{% include 'result.html' %}-->
+    <label for="text1">Please enter seed words separated by comma</label><br>
+    <!--<input type="text" id="text1" name="text1" placeholder="best,good" value="best,good">-->
+    <input type="text" id="text1" name="text1" placeholder="best,good">
+    <!--<textarea id="text1" name="text1" rows="5" cols="40">best,good</textarea> -->
+    <!--<textarea id="text1" name="text1">best,good</textarea>-->
+    <br>
+    <input type="submit" value="Boost">
+  </form>
+  {{result}}
+<!--   {% for res in result %}
+    <h4>{{ res }}</h4>
+  {% endfor %} -->
+</div>
+</body>
+</html>
