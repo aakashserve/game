@@ -1,6 +1,8 @@
 import uuid
 import datetime
 import webbrowser
+import pandas as pd
+import random as r
 from flask import Flask, flash, redirect, render_template, request, session, abort,redirect,url_for
 
 app = Flask(__name__)
@@ -13,8 +15,11 @@ def hello():
 @app.before_first_request
 def load_global_data():
 	## Load Logger File
-	global log_file_object
+	global log_file_object, questions, num_questions
 	log_file_object = open('logs/log_file.tsv','a')
+	questions = pd.read_csv('questions/questions.csv')
+	num_questions = 3
+	# print(questions_bank.shape)
 	print("All Files Loaded")
 
 #generate link value
@@ -24,20 +29,34 @@ def generate_link_value():
 ## generate html file run time
 def generate_html_file(link_value):
 	f = open("templates/"+str(link_value)+".html","w")
-	message = """<html>
-	<head></head>
-	<body><p>Hello World!</p>
-	<h3> ALL SET OF QUESTIONS TO BE HERE !!</h3>
-	</body>
-	</html>"""
+	start = """
+	    <!DOCTYPE html>
+	    <html>
+	    <body>
+	    <h1>Hey buddy, let's grill your interests</h1>
+	    <form method="POST" action="{{url_for('capture_user_response')}}">
+	"""
+	end = """
+	    </form>
+	    </body>
+	    </html>
+	"""
+	selected_questions = questions.sample(num_questions)
+	radio = '' # empty array to push the rows of input tags 
+	for index,row in selected_questions.iterrows():
+	    radio  = radio +'<p>{0}</p>'.format(row['question_text'])
+	    for options in row['options'].split(','):
+	        radio = radio +'<input type="radio" id="{0}{1}" name="question{0}" value="{1}"> "{1}"<br>'.format(row['question_id'],options)
+	message = start + radio + end 
 	f.write(message)
 	f.close()
 	return message
 
+
 @app.route('/generate_link',methods = ['POST'])
 def generate_link():
 	if request.method == 'POST':
-		# print(request.form.to_dict())
+		print(request.form.to_dict())
 		# {'mobileno': u'35467', 'firstname': u'Abc'}
 		entered_name = request.form.to_dict()['firstname']
 		entered_mobile_no = request.form.to_dict()['mobileno']
